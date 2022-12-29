@@ -29,28 +29,27 @@ export class ArtistPageComponent implements OnInit {
 
 
     this.service.getRelatedArtists(this.artistId).then((data) => {
+      this.relatedArtists = []
       data["artists"].forEach(artist => {
-        this.relatedArtists = []
         this.relatedArtists.push(new ArtistData(artist))
       })
      })
 
     this.service.getTopTracksForArtist(this.artistId).then((data) => {
+      this.topTracks = []
       data["tracks"].forEach(track => {
-        this.topTracks = []
         this.topTracks.push(new TrackData(track))
       })
     })
 
     this.service.getAlbumsForArtist(this.artistId).then((data) => {
-      console.log(data)
+      this.albums = []
       data["items"].forEach(album => {
-        this.albums = []
         this.albums.push(new AlbumData(album))
       })
     })
 
-
+    //console.log(this.topTracks)
   }
 
   loadArtistProfile() {

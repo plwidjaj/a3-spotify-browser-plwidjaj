@@ -55,6 +55,7 @@ export class SearchComponent implements OnInit {
             });
             this.searchArtistorAlbum = true;
             this.searchTrack = false;
+            console.log(this.resources)
             break;
         default:
           throw "Unrecognized Data"

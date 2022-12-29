@@ -24,14 +24,17 @@ export class AboutComponent implements OnInit {
   /*TODO: create a function which gets the "about me" information from Spotify when the button in the view is clicked.
   In that function, update the name, profile_pic, and profile_link fields */
 
-  async loadAbout()  {
-    var user_data = await this.service.aboutMe()
-    this.name = user_data.name
-    this.profile_pic = user_data.imageURL
+  loadAbout()  {
+    this.service.aboutMe().then((data) => {
+      this.name = data.name
+      this.profile_pic = data.imageURL
+    })
+  
   }
 
-  async loadSpotifyProfile()  {
-    var user_data = await this.service.aboutMe()
-    window.location.href = user_data.spotifyProfile
+  loadSpotifyProfile()  {
+   this.service.aboutMe().then((data) => {
+    window.location.href = data.spotifyProfile
+   })
   }
 }
