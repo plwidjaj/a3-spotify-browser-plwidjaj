@@ -1,4 +1,4 @@
---Readme document for *author(s)*, *email(s)*, *UCI id(s)*--
+--Readme document for Priscilla Widjaja, plwidjaj@uci.edu, *87216292*--
 
 1. How many assignment points do you believe you completed (replace the *'s with your numbers)?
 

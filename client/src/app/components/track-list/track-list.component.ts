@@ -14,6 +14,7 @@ export class TrackListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.tracks)
   }
 
 }

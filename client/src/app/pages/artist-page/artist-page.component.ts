@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ArtistData } from '../../data/artist-data';
 import { TrackData } from '../../data/track-data';
 import { AlbumData } from '../../data/album-data';
+import { SpotifyService } from 'src/app/services/spotify.service';
+import { ResourceData } from 'src/app/data/resource-data';
 
 @Component({
   selector: 'app-artist-page',
@@ -16,11 +18,44 @@ export class ArtistPageComponent implements OnInit {
 	topTracks:TrackData[];
 	albums:AlbumData[];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private service: SpotifyService) { }
 
   ngOnInit() {
   	this.artistId = this.route.snapshot.paramMap.get('id');
     //TODO: Inject the spotifyService and use it to get the artist data, related artists, top tracks for the artist, and the artist's albums
+    this.service.getArtist(this.artistId).then((data => {
+      this.artist = new ArtistData(data)
+    }))
+
+
+    this.service.getRelatedArtists(this.artistId).then((data) => {
+      data["artists"].forEach(artist => {
+        this.relatedArtists = []
+        this.relatedArtists.push(new ArtistData(artist))
+      })
+     })
+
+    this.service.getTopTracksForArtist(this.artistId).then((data) => {
+      data["tracks"].forEach(track => {
+        this.topTracks = []
+        this.topTracks.push(new TrackData(track))
+      })
+    })
+
+    this.service.getAlbumsForArtist(this.artistId).then((data) => {
+      console.log(data)
+      data["items"].forEach(album => {
+        this.albums = []
+        this.albums.push(new AlbumData(album))
+      })
+    })
+
+
   }
+
+  loadArtistProfile() {
+    window.location.href = this.artist.url
+  }
+
 
 }
